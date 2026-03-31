@@ -1,0 +1,13 @@
+models:
+  - name: transform
+    description: "Intermediate model that transforms sensor data"
+    columns:
+      - name: sensorId
+        description: "The identifier for the sensor"
+        tests:
+          - not_null
+      - name: unit
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ['Percent', 'Celsius']

@@ -1,0 +1,12 @@
+models:
+  - name: aggregation
+    description: "Aggregates the data every 10 seconds per sensorId and type."
+    columns:
+      - name: sensorId
+        description: "The identifier for the sensor."
+        tests:
+          - not_null
+      - name: type
+        description: "The type of the measurement."
+        tests:
+          - not_null

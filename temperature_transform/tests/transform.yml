@@ -1,0 +1,28 @@
+unit_tests:
+  - name: test_temperature_conversion
+    model: transform
+    given:
+      - input: ref('flatten')
+        format: sql
+        rows: |
+          SELECT
+            'sensor_1' AS `sensorId`,
+            CAST(ROW('temperature', 'Fahrenheit', 68.0) AS ROW<`type` STRING, `unit` STRING, `value` DOUBLE>) AS `value`,
+            '2026-03-31T23:27:17.695Z' AS `timestamp`
+          UNION ALL
+          SELECT
+            'sensor_2' AS `sensorId`,
+            CAST(ROW('humidity', 'Percent', 55.0) AS ROW<`type` STRING, `unit` STRING, `value` DOUBLE>) AS `value`,
+            '2026-03-31T23:27:17.695Z' AS `timestamp`
+    expect:
+      rows:
+        - sensorId: "sensor_1"
+          type: "temperature"
+          unit: "Celsius"
+          value: 20.0
+          timestamp: "2026-03-31T23:27:17.695Z"
+        - sensorId: "sensor_2"
+          type: "humidity"
+          unit: "Percent"
+          value: 55.0
+          timestamp: "2026-03-31T23:27:17.695Z"

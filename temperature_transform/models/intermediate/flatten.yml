@@ -1,0 +1,8 @@
+models:
+  - name: flatten
+    description: "Flattens sensor data and casts types for downstream analysis."
+    columns:
+      - name: sensorId
+        description: "The unique identifier for the sensor."
+        tests:
+          - not_null
