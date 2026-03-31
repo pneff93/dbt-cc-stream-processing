@@ -7,16 +7,13 @@ separate events per
 measurement type plus a conversion of the temperature from Fahrenheit to Celsius. This requires `flatten`, `transform`, and `aggregation`
 steps.
 
-A graphical presentation can be seen here
+A graphical representation can be seen here
 
 ![](image.png)
 
 ## Resources
 
 * [Confluent dbt step-by-step documentation](https://docs.confluent.io/cloud/current/flink/operate-and-deploy/deploy-flink-dbt.html)
-
-> [!NOTE]
-> We provide dedicated resource links for each step
 
 ## Installation
 
@@ -101,7 +98,7 @@ models:
 ### Structure overview
 * [dbt guide structure overview](https://docs.getdbt.com/best-practices/how-we-structure/1-guide-overview?version=1.12#guide-structure-overview)
 
-We follow the common naming strategy of our models using intermediate, and marts. So our model has the following structure.
+We follow the common naming strategy of our models using intermediate, and marts.
 ```shell
 ├── models
 │   ├── intermediate
@@ -162,7 +159,7 @@ dbt run
 * [dbt data tests](https://docs.getdbt.com/reference/resource-properties/data-tests?version=1.12)
 
 The data test for the transform statement can be found in `models/intermediate/transform.yml`
-We want to test if the sensorId is always set and if only percent for humidity and Celsius for temperature as units are possible.
+We want to test if the `sensorId` is always set and if only percent for humidity and Celsius for temperature as units are possible.
 
 ```yaml
 models:
@@ -195,7 +192,7 @@ dbt test --select test_type:data
 ```
 
 > [!NOTE]
-> Based on my experience the corresponding table needs to really exist in Confluent Flink beforehand to run the test successfully. Otherwise,
+> Based on my experience, the corresponding table needs to exist in Confluent Flink beforehand to run the test successfully. Otherwise,
 > I received the error `Table (or view) 'flatten' does not exist...`
 
 ### Unit tests
@@ -205,6 +202,37 @@ dbt test --select test_type:data
 The unit test for the transform statement can be found in `tests/transform.yml`
 We want to test if the input events will be processed to the expected
 output events.
+
+```yaml
+unit_tests:
+  - name: test_temperature_conversion
+    model: transform
+    given:
+      - input: ref('flatten')
+        format: sql
+        rows: |
+          SELECT
+            'sensor_1' AS `sensorId`,
+            CAST(ROW('temperature', 'Fahrenheit', 68.0) AS ROW<`type` STRING, `unit` STRING, `value` DOUBLE>) AS `value`,
+            '2026-03-31T23:27:17.695Z' AS `timestamp`
+          UNION ALL
+          SELECT
+            'sensor_2' AS `sensorId`,
+            CAST(ROW('humidity', 'Percent', 55.0) AS ROW<`type` STRING, `unit` STRING, `value` DOUBLE>) AS `value`,
+            '2026-03-31T23:27:17.695Z' AS `timestamp`
+    expect:
+      rows:
+        - sensorId: "sensor_1"
+          type: "temperature"
+          unit: "Celsius"
+          value: 20.0
+          timestamp: "2026-03-31T23:27:17.695Z"
+        - sensorId: "sensor_2"
+          type: "humidity"
+          unit: "Percent"
+          value: 55.0
+          timestamp: "2026-03-31T23:27:17.695Z"
+```
 
 
 ```shell
@@ -248,6 +276,6 @@ dbt is a great tool going into that direction.
 **Confluent Cloud resources**
 
 I was really surprised that my compute pool requested up to 18 CFUs at some point in time. For a rather simple pipeline,
-it do not get how this high resources usage comes from. 
+I do not get how this high resources usage comes from. 
 
 
