@@ -7,6 +7,9 @@ separate events per
 measurement type plus a conversion of the temperature from Fahrenheit to Celsius. This requires `flatten`, `transform`, and `aggregation`
 steps.
 
+The sensor producer can be found [here](https://github.com/pneff93/stream-processing-playground/tree/main/KafkaProducer).
+It produces an event every 2 seconds, resulting in 84B/s ingress.
+
 A graphical representation can be seen here
 
 ![](image.png)
