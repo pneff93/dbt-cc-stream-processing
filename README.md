@@ -88,6 +88,7 @@ and deployment for the transform (Fahrenheit --> Celsius) statement.
 ### Project overview
 
 * [Materializations](https://github.com/confluentinc/dbt-confluent/blob/main/MATERIALIZATIONS.md)
+* [CREATE TABLE AS SELECT (CTAS)](https://docs.confluent.io/cloud/current/flink/reference/statements/create-table.html#create-table-as-select-ctas)
 
 In our project, we configure every table as a materialized view. This corresponds to a Flink table created via `CREATE TABLE AS SELECT...`
 ```yaml
@@ -257,6 +258,8 @@ dbt test --select test_type:unit
 
 ### Lineage Graph
 
+* [Confluent documentation](https://docs.confluent.io/cloud/current/flink/operate-and-deploy/deploy-flink-dbt.html#understand-downstream-impact)
+
 Finally, we want to visualize our data flow. We do this once with dbt and once in Confluent Cloud.
 
 ```shell
@@ -277,19 +280,19 @@ We add some screenshots from Confluent Cloud to verify that our stream processin
 
 ## Final Comments
 
-**dbt labs experience**
+### dbt labs experience
 
 It took some time to get used to how dbt works but once the first statements were developed and tested it felt more and more naturally.
 Even though in my first iterations it was not a test driven development (which I would always recommend), I am pretty convinced
 dbt is a great tool going into that direction, especially with unit tests. 
 
-**Confluent Cloud resources**
+### Confluent Cloud resources
 
 I was really surprised that my compute pool requested up to 18 CFUs at some point in time. For a rather simple pipeline,
 Checking further, I have seen that some statements were not cleaned up even though running them with `dbt run --full-refresh`.
 This is already a known bug and should be fixed soon
 
-**Confluent Cloud Fink particularities**
+### Confluent Cloud Fink particularities
 
 Sometimes, the  Confluent Cloud Flink particularities (e.g. metadata fields like rowtime) made it difficult to write the actual statements or unit tests.
 Or in different words, it requires a bit Confluent Cloud Flink knowledge to develop everything properly.
