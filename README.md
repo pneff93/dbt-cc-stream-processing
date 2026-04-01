@@ -161,7 +161,7 @@ dbt run
 ### Data tests
 * [dbt data tests](https://docs.getdbt.com/reference/resource-properties/data-tests?version=1.12)
 
-The data test for the transform statement can be found in `models/intermediate/transform.yml`
+The data test for the transform statement can be found in `models/intermediate/transform.yml`.
 We want to test if the `sensorId` is always set and if only percent for humidity and Celsius for temperature as units are possible.
 
 ```yaml
