@@ -1,6 +1,7 @@
 # Stream Processing in Confluent Cloud Flink with data build tool (dbt)
 
 The goal is to implement, test, and deploy a stream processing pipeline with Flink SQL using [dbt](https://www.getdbt.com/).
+We will document each step and some final comments can be seen at the end of this README [here](https://github.com/pneff93/dbt-cc-stream-processing/tree/main?tab=readme-ov-file#final-comments).
 
 In more detail, we have a sensor sending continuously temperature and humidity data as one event. Finally, we want to have
 separate events per
@@ -10,7 +11,7 @@ steps.
 The sensor producer can be found [here](https://github.com/pneff93/stream-processing-playground/tree/main/KafkaProducer).
 It produces an event every 2 seconds, resulting in 84B/s ingress.
 
-A graphical representation can be seen here
+A graphical representation can be seen here:
 
 ![](image.png)
 
@@ -280,11 +281,18 @@ We add some screenshots from Confluent Cloud to verify that our stream processin
 
 It took some time to get used to how dbt works but once the first statements were developed and tested it felt more and more naturally.
 Even though in my first iterations it was not a test driven development (which I would always recommend), I am pretty convinced
-dbt is a great tool going into that direction. 
+dbt is a great tool going into that direction, especially with unit tests. 
 
 **Confluent Cloud resources**
 
 I was really surprised that my compute pool requested up to 18 CFUs at some point in time. For a rather simple pipeline,
 Checking further, I have seen that some statements were not cleaned up even though running them with `dbt run --full-refresh`.
+This is already a known bug and should be fixed soon
+
+**Confluent Cloud Fink particularities**
+
+Sometimes, the  Confluent Cloud Flink particularities (e.g. metadata fields like rowtime) made it difficult to write the actual statements or unit tests.
+Or in different words, it requires a bit Confluent Cloud Flink knowledge to develop everything properly.
+
 
 
