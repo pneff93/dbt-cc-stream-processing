@@ -15,10 +15,6 @@ A graphical representation can be seen here:
 
 ![](image.png)
 
-## Resources
-
-* [Confluent dbt step-by-step documentation](https://docs.confluent.io/cloud/current/flink/operate-and-deploy/deploy-flink-dbt.html)
-
 ## Installation
 
 * [Confluent documentation](https://docs.confluent.io/cloud/current/flink/operate-and-deploy/deploy-flink-dbt.html#step-1-install-the-dbt-confluent-adapter)
