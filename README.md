@@ -86,7 +86,7 @@ and deployment for the transform (Fahrenheit --> Celsius) statement.
 * [Materializations](https://github.com/confluentinc/dbt-confluent/blob/main/MATERIALIZATIONS.md)
 * [CREATE TABLE AS SELECT (CTAS)](https://docs.confluent.io/cloud/current/flink/reference/statements/create-table.html#create-table-as-select-ctas)
 
-In our project, we configure every table as a materialized view. This corresponds to a Flink table created via `CREATE TABLE AS SELECT...`
+In our project, we configure every table as a materialized view. This corresponds to a CC Flink table created via `CREATE TABLE AS SELECT...`
 ```yaml
 models:
   temperature_transform:
@@ -200,8 +200,7 @@ dbt test --select test_type:data
 * [dbt unit tests](https://docs.getdbt.com/docs/build/unit-tests?version=1.12)
 
 The unit test for the transform statement can be found in `tests/transform.yml`
-We want to test if the input events will be processed to the expected
-output events.
+We want to test if the input events will be correctly processed by comparing them to the expected output ones.
 
 ```yaml
 unit_tests:
@@ -256,7 +255,7 @@ dbt test --select test_type:unit
 
 * [Confluent documentation](https://docs.confluent.io/cloud/current/flink/operate-and-deploy/deploy-flink-dbt.html#understand-downstream-impact)
 
-Finally, we want to visualize our data flow. We do this once with dbt and once in Confluent Cloud.
+Finally, we want to visualize our data flow. We do this once with dbt and once in Confluent Cloud Stream Lineage view.
 
 ```shell
 dbt docs generate
