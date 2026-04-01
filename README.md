@@ -253,7 +253,7 @@ dbt test --select test_type:unit
 ```
 
 > [!NOTE]
-> It was quite a challenge to get the right form for the input events and required several iterations
+> It was quite a challenge to get the right form for the input events and required several iterations.
 
 ### Lineage Graph
 
@@ -279,6 +279,6 @@ dbt is a great tool going into that direction.
 **Confluent Cloud resources**
 
 I was really surprised that my compute pool requested up to 18 CFUs at some point in time. For a rather simple pipeline,
-I do not get how this high resources usage comes from. 
+Checking further, I have seen that some statements were not cleaned up even though running them with `dbt run --full-refresh`.
 
 
