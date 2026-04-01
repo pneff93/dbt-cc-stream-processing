@@ -1,7 +1,7 @@
 # Stream Processing in Confluent Cloud Flink with data build tool (dbt)
 
 The goal is to implement, test, and deploy a stream processing pipeline with Flink SQL using [dbt](https://www.getdbt.com/).
-We will document each step and some final comments can be seen at the end of this README [here](https://github.com/pneff93/dbt-cc-stream-processing/tree/main?tab=readme-ov-file#final-comments).
+We will document each step and share some experiences at the end of this README [here](https://github.com/pneff93/dbt-cc-stream-processing/tree/main?tab=readme-ov-file#final-comments).
 
 In more detail, we have a sensor sending continuously temperature and humidity data as one event. Finally, we want to have
 separate events per
