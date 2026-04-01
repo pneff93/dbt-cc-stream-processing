@@ -256,7 +256,14 @@ dbt test --select test_type:unit
 
 ### Lineage Graph
 
+Finally, we want to visualize our data flow. We do this once with dbt and once in Confluent Cloud.
 
+```shell
+dbt docs generate
+dbt docs serve
+```
+![](dbtDataLineage.png)
+![](CCDataLineage.png)
 
 
 ## Confluent Cloud
