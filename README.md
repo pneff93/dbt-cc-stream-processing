@@ -81,7 +81,7 @@ In total, we need 3 processing steps:
 * transform
 * aggregate
 
-In addition, we want each statement to have a data test and a unit test. We will go step-by-step through the statement development, testing,
+In addition, we want to have some data tests and a unit test. We will go step-by-step through the statement development, testing,
 and deployment for the transform (Fahrenheit --> Celsius) statement.
 
 ### Project overview
@@ -113,7 +113,6 @@ We follow the common naming strategy of our models using intermediate, and marts
 │   │       ├── aggregation.sql
 │   │       └── aggregation.yml
 └── tests
-    └── aggregation.yml
     └── transform.yml         <-- unit test
 ```
 
@@ -257,7 +256,7 @@ dbt test --select test_type:unit
 
 ### Lineage Graph
 
-Add the graph!!!
+
 
 
 ## Confluent Cloud
